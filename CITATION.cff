@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "If you use this code or its results, please cite the associated article and this repository."
 title: "Tissue composition quantitatively reproduces bulk transcriptomic differences between paired primary gastric tumours and solid peritoneal metastases"
 type: software
-version: 1.0.0
+version: 1.0.1
 date-released: 2026-10-03
 repository-code: "https://github.com/kingterkong/gastric-pm-tissue-composition"
 url: "https://github.com/kingterkong/gastric-pm-tissue-composition"

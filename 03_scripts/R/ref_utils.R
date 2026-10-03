@@ -10,7 +10,7 @@ eutils_fetch_pubmed <- function(pmids, cache_dir) {
   todo <- pmids[!file.exists(file.path(cache_dir, paste0(pmids, ".xml")))]
   for (chunk in split(todo, ceiling(seq_along(todo) / 150))) {
     if (!length(chunk)) next
-    url <- sprintf("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&tool=claude_pm_refs&id=%s",
+    url <- sprintf("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&tool=gastric_pm_refs&id=%s",
                    paste(chunk, collapse = ","))
     tmp <- tempfile(fileext = ".xml")
     for (a in 1:3) {
