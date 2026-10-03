@@ -1,0 +1,17 @@
+# Local and regenerated data
+.DS_Store
+.Rhistory
+.RData
+.Rproj.user/
+renv/library/
+renv/staging/
+renv/sandbox/
+01_data_raw/
+02_data_processed/bulk/
+02_data_processed/singlecell/
+02_data_processed/validation/
+_rebuilds/
+09_code_release/
+*.inspect.ndjson
+00_admin/execution_logs/
+*conflicted copy*

@@ -1,0 +1,121 @@
+{
+  "protocol_version": "v1",
+  "frozen_at": "2026-09-25",
+  "is_preregistered": false,
+  "registration_note": "not registered on any platform; the term preregistered is not used in the manuscript",
+  "branch": "B (single frozen malignant-epithelial program; within-patient change)",
+  "primary_question": "Does an independently defined, malignant-epithelium-biased dissemination/relapse program change reproducibly between paired primary gastric cancer and solid peritoneal metastasis within the same patient, and does any change survive adjustment for host-tissue composition?",
+  "primary_program": "HRC_CORE",
+  "primary_estimand": "mean of within-patient delta = score(solid peritoneal metastasis) - score(primary tumour); one pair per patient; patient-weighted",
+  "primary_test": "two-sided paired t-test on patient deltas; 95% t confidence interval; patient-level bootstrap (5000) as robustness",
+  "primary_cohort": "GSE314812 eligible paired patients (GC05 pre-treatment visit only)",
+  "roles": {
+    "primary_test": "GSE314812",
+    "external_bulk_directional": "GSE237876",
+    "calibration_development": ["GSE183904 gastric primary/normal donors", "GSE163558"],
+    "cell_level_descriptive": ["GSE308231", "GSE183904 peritoneal donors"],
+    "fluid_context_separate_estimand": "GSE239676",
+    "spatial_single_case": "GSE251950",
+    "clinical_exploratory_default_off": "GSE62254/ACRG"
+  },
+  "multiplicity": {
+    "primary_family": {
+      "members": "HRC_CORE",
+      "correction": "none (single test)"
+    },
+    "secondary_A": {
+      "members": ["CTRL_EMT", "CTRL_PROLIFERATION", "CTRL_STROMA", "CTRL_IEG_STRESS", "NEG_YAP_STROMAL"],
+      "correction": "BH FDR"
+    },
+    "secondary_B": {
+      "members": ["COMPART_GASTRIC_EPITHELIUM", "COMPART_MESOTHELIUM", "COMPART_ADIPOCYTE", "COMPART_FIBROBLAST", "COMPART_SMOOTH_MUSCLE", "COMPART_ENDOTHELIUM", "COMPART_IMMUNE"],
+      "correction": "BH FDR"
+    },
+    "exploratory": ["gene-level DE", "pathway enrichment", "fluid context", "spatial", "clinical"]
+  },
+  "coverage_rule": {
+    "min_fraction_measured": 0.8,
+    "min_genes": 10,
+    "failure_action": "program marked not evaluable on that platform; no score computed"
+  },
+  "scoring": {
+    "method": "within-sample equal-weight mean gene rank",
+    "scale": "0-1 relative rank",
+    "universe_rule": "CPM >= 1 in >= 25% of samples on that platform; defined without any site/group information"
+  },
+  "adjusted_models_prespecified": ["preservation change", "mesothelium + adipocyte compartment deltas", "stromal abundance delta", "proliferation delta"],
+  "sensitivity_prespecified": ["patient bootstrap", "median and sign test", "Wilcoxon signed rank", "leave-one-patient-out", "same-preservation pairs only", "GC05 post-treatment pair", "epithelium-restricted subset", "epiHR alternative definition"],
+  "success_definitions": {
+    "compatible": "independent effect same direction with interval compatible with the primary estimate",
+    "limited_directional": "point estimate same direction but interval wide (the maximum achievable in GSE237876, n=5)",
+    "inconsistent": "direction or magnitude in substantive conflict",
+    "uninformative": "too few patients or too imprecise",
+    "not_evaluable": "coverage, identity or availability failure"
+  },
+  "evidence_ceiling": {
+    "prohibited_claims": ["drives", "mediates", "causes", "therapeutic target", "predicts recurrence", "treatment benefit"],
+    "conditional_claims": {
+      "independent_validation": "only if patients and development are truly independent and the endpoint identical; GSE237876 (n=5) is an independent cohort analysis with limited directional support, not validation",
+      "cell_intrinsic": "requires within-cell-type measured evidence",
+      "peritoneal_specific": "requires a directly estimable other-site contrast"
+    },
+    "default_framing": "tissue-level transcriptional change; not malignant-cell-intrinsic activity"
+  },
+  "contacted_published_results": "see topic_decision.md section 6; no target-cohort site-stratified expression was computed before this lock",
+  "program_definition_hashes": {
+    "HRC_CORE": "e9b877564a4a6fb3507735dd5a85deccda64dfca94eeb937005293bf5a8afc22",
+    "CTRL_EMT": "851a1dfce13896a5452f54b0140b72729a2bd189e01a3ec0ffbb6ccc0ff04d2c",
+    "CTRL_PROLIFERATION": "e2e91eb0a213fa30e7ad9cf12307c3d0b4d0496028274df2e2eac8115db16c6f",
+    "CTRL_STROMA": "31879018163ccf9f5a2b7b74118e9196c6d0cb825d76add2b8339cc87b3fe6c9",
+    "CTRL_IEG_STRESS": "48e145bbff69701873f7189863bc0251cb8eb0075f85b267cf7247645832a0b4",
+    "NEG_YAP_STROMAL": "cd08977857faae648d4554799cf99d728fd1e50dc038cb9f3a9916fd690f4881",
+    "SENS_HRC_EPI_RESTRICTED": "311c56de7fa9900c4510369f8dac37a8db88dade295c35ed42d282824f6ff2e2",
+    "SENS_HRC_EPIHR": "d7e6ac5a6c3394ad273d6e8c6a2b8701584b36def0fefd15bb4d5487b10c3fcb",
+    "COMPART_GASTRIC_EPITHELIUM": "36b8e67c2c766ea9243c04e4d78e927179a71cc4a2428a51168a97b507a31cd5",
+    "COMPART_MESOTHELIUM": "effa38852347f169648d306df899197e115e0171e4c61e46de50918b89672311",
+    "COMPART_ADIPOCYTE": "c7b347928e0c5a652d77ddd6ff6854b33702b7c3b0424284cffce255ffe1d8e7",
+    "COMPART_FIBROBLAST": "6ea81dba0003e22b0f5f260e6b3135c550c87899157c3c5a387d0f2de8aeddba",
+    "COMPART_SMOOTH_MUSCLE": "af2230335c72eb0604f6590450faee30357bc9c585f51f15224964cb1113e2c9",
+    "COMPART_ENDOTHELIUM": "659c08f98439b1a0f06dc5fac0fb35ccf886c0fd16ac51dbb1cb796ad93f8a5b",
+    "COMPART_IMMUNE": "cf8efc6cbf367baf6b5de7d60b5d74e52a00e8f19c5c6dc68c4b4f74b5c46adb"
+  },
+  "input_hashes": {
+    "01_data_raw/GSE314812/geo/GSE314812_rsem.merged.gene_counts.tsv.gz": "4458e2b63d032f269b059330796675d8a89c491fc3ce890dec56593004c51a7d",
+    "01_data_raw/GSE237876/GSE237876_RAW.tar": "44b2e5bf1d92112e575cd9e7499c214a6e3215c46eda4164b6782eb5f3173a1f",
+    "01_data_raw/other_sources/annotation/Homo_sapiens.GRCh37.75.gtf.gz": "770f48d9aecd9bdecdf147fd141c23670b215bccbdbfa459048f45b02581c2ed",
+    "01_data_raw/other_sources/annotation/hgnc_complete_set_20260925.txt": "3e5da5b757afce6cae333d3e6c97a59ff3aadfb13da1c70f89d9a8f252b9e7ec",
+    "01_data_raw/other_sources/annotation/hpa_rna_single_cell_type.tsv.zip": "2ddd3d90fb050a8efea508792ba7741c510fb5aa3d89f352aab99794ec2c9d64",
+    "01_data_raw/other_sources/GSE183904/GSE183904_RAW.tar": "ba089d1dc186826e84d2199d1eb6942c35eb8fb70e7a5d2b20650b72982b90b3",
+    "01_data_raw/other_sources/GSE163558/GSE163558_RAW.tar": "7d79bcb6b3c00caf711c4d479adb2d9067ad3aff6f1a3c22b6974745562472b0",
+    "01_data_raw/other_sources/GSE308231/GSE308231_RAW.tar": "d1f05a7dd0a782f307386249c06f586128c296897b44e2e020855d014802c98c",
+    "01_data_raw/other_sources/GSE239676/GSE239676_count_matrix.mtx.gz": "6d9e51a6d2759d118d2aa86d6416c0561a1dc5713021e462132171ba3f5525e2",
+    "../project/01_data_raw/GSE251950/GSE251950_RAW.tar": "2ebb4c2b8c2e403d7e664a5e4f06c9f4c672f10f61ad872960f9427f7f2fed55"
+  },
+  "script_hashes": {
+    "03_scripts/00_preflight.R": "9d43e36fc0a4f83d53c6cb0be99dfe2c00d59f7a74b26deb5da7133ca3ccbb14",
+    "03_scripts/01_literature_and_metadata.R": "06e3142088008e42ccc214eecf2429b0e8c102cf0d2a998dcf238e1f7a6c2831",
+    "03_scripts/02_audit_samples.R": "01968debad871766aca55465d7df95b46fc0066ef3d45c912db787487f240bcb",
+    "03_scripts/03_download_inputs.R": "e92dd0899a490eb1b26ca128ab9ce1f1a97489e1454617875a7d7f6dc2c8c1a9",
+    "03_scripts/04_prepare_bulk.R": "14808abebfcfdd41ca8e8b5722c07826545aac5424133cfba382a29420e96072",
+    "03_scripts/05_prepare_singlecell.R": "fc983a972e9e793353f48d7fa61607fb7fb1492eec21ca840ed0773a99f461ae",
+    "03_scripts/06_define_and_freeze_programs.R": "a8df3677c77818f8079c25614f24e45741adcf81875368a2f244e5e61f20da4d",
+    "03_scripts/07_primary_paired_analysis.R": "62c6e8c2335f8b6a94e568318cf34236acb3da275598314acf5d56b370d93e69",
+    "03_scripts/08_independent_validation.R": "35f05e1d519a837706fe416a0ee9f4aa13bc974673bf9ae5405d5ea7d98e80eb",
+    "03_scripts/09_composition_and_coupling.R": "00f21a2a97ba2f86c9697095503e0bea12035a9dd1f49efe35589cc217585503",
+    "03_scripts/10_optional_spatial_clinical.R": "4a42b6c3505cf0a9f25fd52d6b2e91b5ff57e0a630f558fd2bbe7d1879e80b2e",
+    "03_scripts/11_sensitivity_and_synthesis.R": "5ac0b5545c46c50fb675b1740e97824ce2ea013be7b93f981fca7479dd87e737",
+    "03_scripts/R/geo_utils.R": "2adb3fcb8784ab0f6e4e1797dbdf130a85dc08f1d09e4df6d8413e52765719e2",
+    "03_scripts/R/header.R": "f93282f5ee83bb88b22d0c1242c5ef3ac21b2ea70a399d37a3b2c4dc045f32f7",
+    "03_scripts/R/install_deps.R": "531a742757c0ac0a533da1d3b2cb7e3732ec1b163f9fc0f7bcc3160e345e3be3",
+    "03_scripts/R/ref_utils.R": "326932dedf366f5241aede7a6a2f37e1308077a40d747af9b232b58cc0b7440e",
+    "03_scripts/R/sc_utils.R": "6b2aaca5073329159cb8f37de1f7d2c5a095f1a563c9122c8cef8c5b8f90b4f9",
+    "03_scripts/R/score_utils.R": "6e8b601e73d5c35954fc2f0636bd6136c0b32816fc5e5d37797c3d908cb0cfa1",
+    "03_scripts/R/utils.R": "4d730a4f116e13a1d9e46df50c07468d5ed9fe84d0429c4a5a2bd0769bb2a8f4"
+  },
+  "curation_hashes": {
+    "GSE163558_patient_map.csv": "396d9c1907beb4308f4f5dce5ce068f73ecf4785848057b266e3899fcac5bb24",
+    "GSE314812_visit_rules.csv": "ab37a0eb4eed018eccd6bb0d928d551bdae1d9ef512acf3fcdc535258c0d1879"
+  },
+  "protocol_text_sha256": "1239df099093287911df4af74dfda0f00dd1079f0c5cc1d6a882cdf356326025",
+  "crosswalk_sha256": "dc4b9745809ab9344f5073b080275ae706d9524163f72f78592d99e2f25c7231"
+}

@@ -1,0 +1,3 @@
+geo_patient_label,canonical_patient_id,visit,therapy_before_sampling,collection_time_or_order,identity_confidence,evidence
+GC05a,GC05,1,pre-treatment (PS1 'before treatment'),visit 1 (initial),high,"SD1 lists a single patient GC05; Fig. 2 legend: 'PS1 ... before treatment. T2 and PS2 ... after treatment (1-year recurrence)'; SD15 labels GCPM1/Primary1 and GCPM2/Primary2; a->1 assignment from SD15 row order = matrix column order and SD15 read totals <= SRA spots; GEO age 47 (a) vs 48 (b)"
+GC05b,GC05,2,post-treatment (1-year recurrence; regimen not reported),visit 2 (~1 year later),high,same as above

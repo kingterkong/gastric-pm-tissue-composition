@@ -1,0 +1,117 @@
+# project_pm configuration. Scientific settings below the "scientific" key are frozen
+# together with protocol_v1 (see 00_admin/protocol_lock.json) and must not be changed
+# in response to results; changes are recorded in 00_admin/deviations.md.
+
+project:
+  name: project_pm
+  version: 0.1.0
+  seed: 20260925
+
+tools:
+  pandoc: /Applications/RStudio.app/Contents/Resources/app/quarto/bin/tools/aarch64/pandoc
+  soffice: /opt/homebrew/bin/soffice
+
+resources:
+  workers: 4
+  max_parallel_downloads: 2
+  reserve_disk_gb: 10
+  download_attempts: 3
+  connect_timeout_s: 30
+  small_request_timeout_s: 120
+  large_file_attempt_timeout_s: 3600
+
+packages:
+  base: [data.table, ggplot2, patchwork, jsonlite, yaml, digest, openxlsx, Matrix, boot]
+  bioc_bulk: [limma, edgeR, GEOquery, singscore, AnnotationDbi, org.Hs.eg.db]
+
+# Analysis inputs. Each entry states the claim it supports (plan section 8.1).
+downloads:
+  - accession: GSE314812
+    url: https://ftp.ncbi.nlm.nih.gov/geo/series/GSE314nnn/GSE314812/suppl/GSE314812_rsem.merged.gene_counts.tsv.gz
+    dest: GSE314812/geo/GSE314812_rsem.merged.gene_counts.tsv.gz
+    sha256: 4458e2b63d032f269b059330796675d8a89c491fc3ce890dec56593004c51a7d
+    source_study: Charton 2026 Commun Biol (PMID 41882239)
+    data_type: bulk RNA-seq, RSEM expected counts (gene-level), 55 specimens
+    patient_key_source: GEO title patient label + Supplementary Data 1
+    purpose: primary within-patient solid PM vs primary estimand
+    role: primary_test
+  - accession: GSE237876
+    url: https://ftp.ncbi.nlm.nih.gov/geo/series/GSE237nnn/GSE237876/suppl/GSE237876_RAW.tar
+    dest: GSE237876/GSE237876_RAW.tar
+    sha256: 44b2e5bf1d92112e575cd9e7499c214a6e3215c46eda4164b6782eb5f3173a1f
+    source_study: Kim 2024 Cancer Commun (PMID 38498378)
+    data_type: bulk total RNA-seq, Salmon quant.sf per specimen (transcript-level), 66 specimens
+    patient_key_source: GEO title pat number + Kim 2024 Table S2
+    purpose: independent-source within-patient solid PM vs primary check (5 patients)
+    role: external_bulk
+  - accession: Ensembl_GRCh37_r75
+    url: https://ftp.ensembl.org/pub/release-75/gtf/homo_sapiens/Homo_sapiens.GRCh37.75.gtf.gz
+    dest: other_sources/annotation/Homo_sapiens.GRCh37.75.gtf.gz
+    source_study: Ensembl release 75 (GRCh37; annotation underlying nf-core/iGenomes GRCh37)
+    data_type: gene/transcript annotation
+    patient_key_source: not applicable
+    purpose: gene symbols/biotypes/lengths for GSE314812; tx2gene for GSE237876
+    role: annotation
+  - accession: HGNC_complete_set
+    url: https://storage.googleapis.com/public-download-files/hgnc/tsv/tsv/hgnc_complete_set.txt
+    dest: other_sources/annotation/hgnc_complete_set_20260925.txt
+    source_study: HGNC (downloaded 2026-09-25)
+    data_type: approved symbols, previous symbols, aliases, Ensembl IDs
+    patient_key_source: not applicable
+    purpose: map program gene symbols across platforms without guessing aliases
+    role: annotation
+  - accession: HPA_single_cell_type
+    url: https://www.proteinatlas.org/download/tsv/rna_single_cell_type.tsv.zip
+    dest: other_sources/annotation/hpa_rna_single_cell_type.tsv.zip
+    source_study: Human Protein Atlas single cell type data (version recorded from download date)
+    data_type: normalized expression by cell type (incl. mesothelial cells, adipocytes, fibroblasts)
+    patient_key_source: not applicable
+    purpose: cohort-independent lineage specificity of program genes (host-tissue admixture risk)
+    role: calibration_reference
+  - accession: GSE183904
+    url: https://ftp.ncbi.nlm.nih.gov/geo/series/GSE183nnn/GSE183904/suppl/GSE183904_RAW.tar
+    dest: other_sources/GSE183904/GSE183904_RAW.tar
+    source_study: Kumar 2022 Cancer Discov (PMID 34642171)
+    data_type: scRNA-seq raw UMI counts (40 per-sample CSV)
+    patient_key_source: GEO Series_summary mapping table
+    purpose: cell-identity and measurement calibration (gastric primary/normal donors only); descriptive held-out PM donors
+    role: calibration
+  - accession: GSE163558
+    url: https://ftp.ncbi.nlm.nih.gov/geo/series/GSE163nnn/GSE163558/suppl/GSE163558_RAW.tar
+    dest: other_sources/GSE163558/GSE163558_RAW.tar
+    source_study: Jiang 2022 Clin Transl Med (PMID 35184420)
+    data_type: scRNA-seq Cell Ranger filtered UMI counts (10 samples)
+    patient_key_source: Jiang 2022 Table S1 (curated)
+    purpose: calibration across 10x chemistry; other-site descriptive context
+    role: calibration
+  - accession: GSE308231
+    url: https://ftp.ncbi.nlm.nih.gov/geo/series/GSE308nnn/GSE308231/suppl/GSE308231_RAW.tar
+    dest: other_sources/GSE308231/GSE308231_RAW.tar
+    source_study: Wang Q 2025 npj Digit Med (PMID 41360923)
+    data_type: scRNA-seq filtered UMI counts (3 primary + 3 solid PM libraries, donors unknown)
+    patient_key_source: none (donor identity unknown)
+    purpose: descriptive cell-level support that the frozen program is carried by malignant cells in solid PM libraries
+    role: cell_level_support
+  - accession: GSE239676
+    url: https://ftp.ncbi.nlm.nih.gov/geo/series/GSE239nnn/GSE239676/suppl/GSE239676_count_matrix.mtx.gz
+    dest: other_sources/GSE239676/GSE239676_count_matrix.mtx.gz
+    source_study: Cheng 2024 Gastroenterology (PMID 39097198)
+    data_type: scRNA-seq UMI counts, 8,630 genes x 222,240 cells
+    patient_key_source: GEO title + meta.tsv Patient
+    purpose: fluid-context estimand (primary vs malignant ascites malignant cells, 9 treatment-naive patients); not solid PM
+    role: context
+  - accession: GSE251950
+    url: https://ftp.ncbi.nlm.nih.gov/geo/series/GSE251nnn/GSE251950/suppl/GSE251950_RAW.tar
+    dest: other_sources/GSE251950/GSE251950_RAW.tar
+    reuse_readonly: ../project/01_data_raw/GSE251950/GSE251950_RAW.tar
+    sha256: 2ebb4c2b8c2e403d7e664a5e4f06c9f4c672f10f61ad872960f9427f7f2fed55
+    source_study: Lee 2024 (PMID 39580151)
+    data_type: Visium spatial (10 sections; one primary-PM case)
+    patient_key_source: GEO sample titles
+    purpose: optional single-case spatial localisation (module gated by protocol)
+    role: spatial_case
+
+# Optional modules; both off by protocol default (see 04_results/optional/module_status.csv).
+modules:
+  spatial: false
+  clinical: false

@@ -1,0 +1,11 @@
+sample_code,patient,sampling_method,cells_table_s1,sex,age_decade,lauren,clinical_note,metadata_source_locator
+PT1,Patient1,Gastroscope,2866,Female,60s,Intestinal,distal gastric adenocarcinoma with liver metastasis; cTxNxM1 IV,Jiang 2022 CTM Supplementary Table S1 (CTM2-12-e730-s001.pdf p.~20) and Results para 1
+Li1,Patient1,Liver biopsy,1348,Female,60s,Intestinal,distal gastric adenocarcinoma with liver metastasis; cTxNxM1 IV,Jiang 2022 CTM Supplementary Table S1
+PT2,Patient2,Operation,9226,Female,80s,Intestinal,moderately differentiated adenocarcinoma; no metastasis; pT3N0M0 IIA,Jiang 2022 CTM Supplementary Table S1
+NT1,Patient2,Operation,2777,Female,80s,Intestinal,adjacent non-tumour tissue of Patient2,Jiang 2022 CTM Supplementary Table S1
+O1,Patient3,Ovary puncture,5937,Female,40s,Mixed,ovarian metastasis; cTxNxM1 IV,Jiang 2022 CTM Supplementary Table S1
+PT3,Patient4,Operation,3925,Male,60s,Intestinal,liver and lymph node metastasis; pT4aN3aM1 IV,Jiang 2022 CTM Supplementary Table S1
+Li2,Patient4,Operation,11164,Male,60s,Intestinal,liver and lymph node metastasis; pT4aN3aM1 IV,Jiang 2022 CTM Supplementary Table S1
+LN1,Patient4,Operation,4227,Male,60s,Intestinal,liver and lymph node metastasis; pT4aN3aM1 IV,Jiang 2022 CTM Supplementary Table S1
+LN2,Patient5,Operation,7940,Female,80s,Mixed,lymph node metastasis; pT3N3aM0 IIIB,Jiang 2022 CTM Supplementary Table S1
+P1,Patient6,Operation,5277,Male,70s,Intestinal,moderately-poorly differentiated adenocarcinoma with peritoneum metastasis; cT4aNxM1 IV,Jiang 2022 CTM Supplementary Table S1
